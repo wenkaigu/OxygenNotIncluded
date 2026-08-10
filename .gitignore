@@ -81,6 +81,10 @@ Directory.Build.props.user
 local.props
 *.local.props
 
+# Local dotnet CLI home / agent scratch
+.dotnet-cli-home/
+_envcheck/
+
 # Publish / ILRepack scratch
 [Pp]ublish/
 _ReSharper*/

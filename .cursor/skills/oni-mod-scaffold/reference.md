@@ -1,5 +1,7 @@
 # ONI Mod Scaffold Reference
 
+Canonical in-repo template: **`mods/HelloWorld/`** — copy it when adding a new mod.
+
 ## Minimal `UserMod2` entry
 
 ```csharp
@@ -46,30 +48,38 @@ Notes:
 - Update `minimumSupportedBuild` to the game build you actually test against
 - `APIVersion: 2` is required for Harmony 2 / mergedown-era loading
 
-## csproj expectations (conceptual)
+## csproj expectations
 
-- `TargetFramework`: typically `net472` or whatever the repo standardizes on
-- Package refs: `PLib`, Harmony ref as required by PLib/game, `ILRepack` (or ILMerge) MSBuild task
-- Post-build or pack step outputs: `ModName.dll`, `mod.yaml`, `mod_info.yaml`
-- Game assembly references: `Assembly-CSharp`, `Assembly-CSharp-firstpass`, Unity modules as needed — paths from props, not hardcoded usernames in committed files
+Prefer copying `mods/HelloWorld/HelloWorld.csproj` rather than rewriting. It already standardizes:
+
+- `TargetFramework`: `net48` + `Microsoft.NETFramework.ReferenceAssemblies` (macOS-friendly)
+- Package refs: `PLib`, `ILRepack.Lib.MSBuild.Task`
+- Game refs: `0Harmony`, `Assembly-CSharp`, `Assembly-CSharp-firstpass`, `UnityEngine.CoreModule` via `$(GameManagedDir)` (`Private=false`)
+- ILRepack merges PLib; `LibraryPath` includes `$(GameManagedDir)` so Newtonsoft.Json resolves from the game
+- Post-build deploy of `ModName.dll` + `mod.yaml` + `mod_info.yaml` to `$(OniModsDevDir)/$(ModName)/`
 
 ## Local deploy
 
 ```
-<Klei>/OxygenNotIncluded/mods/Dev/<ModName>/
+~/Library/Application Support/unity.Klei.Oxygen Not Included/mods/Dev/<ModName>/
   ModName.dll
   mod.yaml
   mod_info.yaml
 ```
 
+(See `oni-mac-paths` rule for the full path table.)
+
 ## Repo layout reminder
 
 ```
 mods/
+  HelloWorld/          # canonical template — keep; copy to start new mods
   <ModName>/
     <ModName>.csproj
-    Mod.cs
+    *Mod.cs
     Patches/
 Directory.Build.props
+Directory.Build.props.user.example
 Directory.Build.props.user   # gitignored — game install path
+OxygenNotIncluded.sln
 ```

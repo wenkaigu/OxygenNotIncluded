@@ -20,3 +20,4 @@ Stack: **C#**, **Harmony 2** (`HarmonyLib`), **PLib**, official `UserMod2` API.
 
 - Prefer PLib helpers (options, buildings, utils) over one-off reinvention when they fit.
 - Keep patches minimal and reversible; document non-obvious game timing (e.g. before/after `Db.Initialize`).
+- Scaffold new mods from `mods/HelloWorld/` (see `oni-mod-scaffold` skill / `oni-project-layout`).
