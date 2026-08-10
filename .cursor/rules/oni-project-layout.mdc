@@ -29,6 +29,7 @@ APIVersion: 2
 
 ## Deploy & git
 
-- Build output for local test: `.../OxygenNotIncluded/mods/Dev/<ModName>/` with DLL + yaml only (no game DLLs).
+- Build output for local test: `mods/Dev/<ModName>/` under the Klei player-data folder (full macOS paths: see `oni-mac-paths`).
+- Ship DLL + yaml only (no game DLLs).
 - Never commit game Managed assemblies, Workshop upload secrets, or absolute personal paths.
 - Keep `staticID` stable across versions.
