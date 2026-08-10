@@ -1,0 +1,35 @@
+---
+description: Standard macOS paths for ONI game, Workshop mods, logs, and deploy
+alwaysApply: true
+---
+
+# ONI macOS Paths
+
+Do **not** full-disk search for mods. Use these paths (expand `~` to `$HOME`).
+
+Steam AppID: **457140**.
+
+## Mods (lookup order)
+
+| Purpose | Path |
+|---------|------|
+| Workshop **installed** (prefer) | `~/Library/Application Support/unity.Klei.Oxygen Not Included/mods/Steam/<WorkshopID>/` |
+| Workshop **raw** Steam cache | `~/Library/Application Support/Steam/steamapps/workshop/content/457140/<WorkshopID>/` |
+| Local Dev deploy | `~/Library/Application Support/unity.Klei.Oxygen Not Included/mods/Dev/<ModName>/` |
+| Enable list | `~/Library/Application Support/unity.Klei.Oxygen Not Included/mods/mods.json` |
+| Mod configs | `~/Library/Application Support/unity.Klei.Oxygen Not Included/mods/` and `mods/config/` |
+
+- Prefer `mods/Steam/<id>/` (DLL + yaml). Raw cache may be only `*_legacy.bin` (zip).
+- `mods.json`: Spaced Out enable = `enabledForDlc` contains `EXPANSION1_ID`. Do **not** treat `enabled: false` alone as disabled.
+- Windows docs path `Documents\Klei\OxygenNotIncluded\` is usually **absent** on Mac; use `unity.Klei.Oxygen Not Included` instead.
+
+## Game, refs, logs, saves
+
+| Purpose | Path |
+|---------|------|
+| Game install | `~/Library/Application Support/Steam/steamapps/common/OxygenNotIncluded/` |
+| Managed assemblies | `…/OxygenNotIncluded.app/Contents/Resources/Data/Managed/` |
+| Player.log | `~/Library/Logs/Klei/Oxygen Not Included/Player.log` |
+| Saves | `~/Library/Application Support/unity.Klei.Oxygen Not Included/save_files/` |
+
+Repo build refs: `Directory.Build.props.user` (gitignored) — not the paths above.
