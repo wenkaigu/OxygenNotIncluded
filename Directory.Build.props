@@ -1,0 +1,18 @@
+<Project>
+  <!-- Machine-specific paths: copy Directory.Build.props.user.example → Directory.Build.props.user -->
+  <Import Project="$(MSBuildThisFileDirectory)Directory.Build.props.user"
+          Condition="Exists('$(MSBuildThisFileDirectory)Directory.Build.props.user')" />
+
+  <PropertyGroup>
+    <LangVersion>latest</LangVersion>
+    <Nullable>disable</Nullable>
+    <Deterministic>true</Deterministic>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <!-- GameManagedDir / OniModsDevDir must be set in Directory.Build.props.user -->
+  </PropertyGroup>
+
+  <Target Name="EnsureGameManagedDir" BeforeTargets="ResolveAssemblyReferences">
+    <Error Condition="'$(GameManagedDir)' == '' or !Exists('$(GameManagedDir)/Assembly-CSharp.dll')"
+           Text="GameManagedDir is missing or invalid. Copy Directory.Build.props.user.example to Directory.Build.props.user and set GameManagedDir to your ONI Managed folder." />
+  </Target>
+</Project>

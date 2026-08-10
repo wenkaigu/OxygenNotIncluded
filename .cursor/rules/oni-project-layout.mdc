@@ -9,8 +9,11 @@ alwaysApply: false
 ## Structure
 
 - Monorepo layout: `mods/<ModName>/` for each mod (csproj, sources, yaml).
+- **New mods:** copy `mods/HelloWorld/` as the canonical template (csproj, PLib/ILRepack/Dev deploy, yaml). Do not invent a parallel project layout. Details: skill `oni-mod-scaffold`.
+- Keep `mods/HelloWorld/` as a long-lived smoke-test / template (safe to disable in-game).
 - Shared code (if any) lives under `src/` or `shared/` — do not copy-paste PLib wrappers per mod without reason.
-- Local game path and Managed refs: `Directory.Build.props.user` (gitignored). Commit only `Directory.Build.props` / `.default` templates.
+- Local game path and Managed refs: copy `Directory.Build.props.user.example` → `Directory.Build.props.user` (gitignored). Commit only `Directory.Build.props` / `.example` templates.
+- Solution: `OxygenNotIncluded.sln`. Typical TFM: `net48` + `Microsoft.NETFramework.ReferenceAssemblies` on macOS.
 
 ## Metadata (required in output folder)
 

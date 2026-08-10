@@ -1,0 +1,8 @@
+<Project>
+  <PropertyGroup>
+    <!-- macOS Steam ONI Managed assemblies -->
+    <GameManagedDir>$(HOME)/Library/Application Support/Steam/steamapps/common/OxygenNotIncluded/OxygenNotIncluded.app/Contents/Resources/Data/Managed</GameManagedDir>
+    <!-- Local Dev deploy root (game loads mods/Dev/ModName/) -->
+    <OniModsDevDir>$(HOME)/Library/Application Support/unity.Klei.Oxygen Not Included/mods/Dev</OniModsDevDir>
+  </PropertyGroup>
+</Project>
