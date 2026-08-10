@@ -1,0 +1,32 @@
+---
+description: Harmony patch safety and conventions for ONI mods
+globs: "**/*Patch*.cs,**/Patches/**/*.cs"
+alwaysApply: false
+---
+
+# Harmony Patches
+
+## Prefer
+
+```csharp
+[HarmonyPatch(typeof(SomeType), nameof(SomeType.SomeMethod))]
+public static class SomeType_SomeMethod_Patch
+{
+    public static void Postfix(/* ... */) { /* additive change */ }
+}
+```
+
+- Prefer `Postfix` or `Prefix` (bool skip) over `Transpiler`.
+- Target with `typeof` + `nameof`. Avoid bare string method names unless overload forces it.
+- One concern per patch class; name as `TypeName_MethodName_Patch`.
+
+## Avoid
+
+- Broad reflective scans or silent catch-all `try/catch` that hide patch failures.
+- Transpilers unless Postfix/Prefix cannot achieve the goal — then comment why and keep IL edits minimal.
+- Patching before required game systems exist without an explicit deferred hook.
+
+## Safety
+
+- Assume other mods patch the same method; keep changes additive when possible.
+- If a Prefix skips the original, document the condition and user-visible impact.

@@ -1,0 +1,34 @@
+---
+description: Repo layout, metadata, and build/deploy conventions for ONI mods
+globs: "**/*.{csproj,props,targets,yaml,yml},**/Directory.Build.*"
+alwaysApply: false
+---
+
+# Project Layout
+
+## Structure
+
+- Monorepo layout: `mods/<ModName>/` for each mod (csproj, sources, yaml).
+- Shared code (if any) lives under `src/` or `shared/` — do not copy-paste PLib wrappers per mod without reason.
+- Local game path and Managed refs: `Directory.Build.props.user` (gitignored). Commit only `Directory.Build.props` / `.default` templates.
+
+## Metadata (required in output folder)
+
+```yaml
+# mod.yaml
+title: "Mod Title"
+description: "..."
+staticID: "Author.ModName"
+
+# mod_info.yaml
+supportedContent: ALL   # or VANILLA_ID / EXPANSION1_ID
+minimumSupportedBuild: <game build>
+version: 1.0.0
+APIVersion: 2
+```
+
+## Deploy & git
+
+- Build output for local test: `.../OxygenNotIncluded/mods/Dev/<ModName>/` with DLL + yaml only (no game DLLs).
+- Never commit game Managed assemblies, Workshop upload secrets, or absolute personal paths.
+- Keep `staticID` stable across versions.

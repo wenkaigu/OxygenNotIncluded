@@ -1,0 +1,22 @@
+---
+description: Core Oxygen Not Included mod standards (C# / Harmony 2 / PLib)
+alwaysApply: true
+---
+
+# ONI Mod Core
+
+Stack: **C#**, **Harmony 2** (`HarmonyLib`), **PLib**, official `UserMod2` API.
+
+## Hard rules
+
+- Never modify game DLLs. Only Harmony patches, configs, and new content.
+- Do not invent types, methods, or `Db` / `Strings` IDs. Verify against game Managed refs or existing mods in-repo.
+- Entry point inherits `KMod.UserMod2`. Prefer `harmony.PatchAll()` from `OnLoad` when using attribute patches.
+- `mod_info.yaml` must set `APIVersion: 2`. Ship both `mod.yaml` and `mod_info.yaml`.
+- PLib must be merged into the mod DLL (ILRepack/ILMerge). Do not expect a separate PLib install.
+- Claim "done" only after a successful build. Prefer deploying to `mods/Dev/<ModName>/` for local test.
+
+## Preferences
+
+- Prefer PLib helpers (options, buildings, utils) over one-off reinvention when they fit.
+- Keep patches minimal and reversible; document non-obvious game timing (e.g. before/after `Db.Initialize`).

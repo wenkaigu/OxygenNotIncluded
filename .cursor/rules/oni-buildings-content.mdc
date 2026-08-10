@@ -1,0 +1,24 @@
+---
+description: Buildings, defs, and localization conventions for ONI content mods
+globs: "**/*Config.cs,**/Buildings/**/*.cs,**/Strings/**/*.cs,**/*Strings*.cs"
+alwaysApply: false
+---
+
+# Buildings & Content
+
+## Patterns
+
+- New buildings use standard `IBuildingConfig` (or project-equivalent Config) + building def registration.
+- Register tech/research unlocks through the normal tech tree hooks; do not hard-unlock in random patches unless intentional.
+- Prefer PLib building/options helpers when adding configurable content.
+
+## Strings & balance
+
+- UI / description text goes through localization strings (e.g. `STRINGS` or mod string tables), not magic literals scattered in logic.
+- When adding numbers (power, heat, storage, rate), choose sane defaults and note balance intent in a short comment.
+- IDs (`BuildingId`, tech IDs) must be stable; renaming breaks saves — treat as breaking change.
+
+## Don't
+
+- Don't embed machine-specific absolute paths in content code.
+- Don't duplicate vanilla building logic wholesale; patch or compose when extending existing buildings.
