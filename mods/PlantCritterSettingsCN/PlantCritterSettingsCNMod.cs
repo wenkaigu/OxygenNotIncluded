@@ -11,7 +11,7 @@ namespace Wenkaigu.PlantCritterSettingsCN
 		{
 			base.OnLoad(harmony);
 			PUtil.InitLibrary();
-			// Modules registered in later tasks
+			harmony.PatchAll();
 			Debug.Log("[PlantCritterSettingsCN] OnLoad");
 		}
 	}
