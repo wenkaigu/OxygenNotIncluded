@@ -24,7 +24,7 @@ Copy and track:
 ```
 Scaffold Progress:
 - [ ] 1. Confirm ModName, staticID, supportedContent
-- [ ] 2. Copy mods/HelloWorld/ → mods/<ModName>/ and rename IDs/namespaces/csproj
+- [ ] 2. Copy mods/HelloWorld/ → mods/<ModName>/ and rename IDs/namespaces/csproj (set `DeployToOniDev` to true / remove the false override so it deploys)
 - [ ] 3. Keep PLib init + harmony.PatchAll(); add patches/content as needed
 - [ ] 4. Update mod.yaml + mod_info.yaml (APIVersion: 2)
 - [ ] 5. Confirm ILRepack still merges PLib (LibraryPath includes GameManagedDir)

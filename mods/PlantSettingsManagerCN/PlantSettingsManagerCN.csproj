@@ -1,13 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net48</TargetFramework>
-    <RootNamespace>Wenkaigu.HelloWorld</RootNamespace>
-    <AssemblyName>HelloWorld</AssemblyName>
+    <RootNamespace>Wenkaigu.PlantSettingsManagerCN</RootNamespace>
+    <AssemblyName>PlantSettingsManagerCN</AssemblyName>
     <OutputType>Library</OutputType>
-    <ModName>HelloWorld</ModName>
-    <!-- Template / smoke-test only: keep in repo, do not ship to game Mods list -->
+    <ModName>PlantSettingsManagerCN</ModName>
+    <!-- Source kept in repo only; do not deploy while Plant Settings Manager is disabled -->
     <DeployToOniDev>false</DeployToOniDev>
-    <!-- Copy package refs locally so ILRepack can merge PLib -->
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
 
@@ -30,13 +29,24 @@
       <HintPath>$(GameManagedDir)/Assembly-CSharp-firstpass.dll</HintPath>
       <Private>false</Private>
     </Reference>
+    <Reference Include="Unity.TextMeshPro">
+      <HintPath>$(GameManagedDir)/Unity.TextMeshPro.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
     <Reference Include="UnityEngine.CoreModule">
       <HintPath>$(GameManagedDir)/UnityEngine.CoreModule.dll</HintPath>
       <Private>false</Private>
     </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>$(GameManagedDir)/UnityEngine.UI.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UIModule">
+      <HintPath>$(GameManagedDir)/UnityEngine.UIModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
   </ItemGroup>
 
-  <!-- Ship yaml next to build output -->
   <ItemGroup>
     <None Include="mod.yaml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -46,7 +56,6 @@
     </None>
   </ItemGroup>
 
-  <!-- Do not copy NuGet Harmony; use the game's 0Harmony -->
   <Target Name="ExcludeNuGetHarmony" AfterTargets="ResolveAssemblyReferences">
     <ItemGroup>
       <ReferenceCopyLocalPaths Remove="@(ReferenceCopyLocalPaths)" Condition="'%(Filename)' == '0Harmony' Or '%(Filename)' == 'Harmony'" />
@@ -59,7 +68,6 @@
       <ILRepackInput Include="$(TargetDir)PLib.dll" Condition="Exists('$(TargetDir)PLib.dll')" />
     </ItemGroup>
     <Error Condition="!Exists('$(TargetDir)PLib.dll')" Text="PLib.dll was not copied to the output folder; cannot ILRepack." />
-    <!-- Resolve PLib deps (e.g. Newtonsoft.Json) from game Managed; do not merge them -->
     <ILRepack
       Internalize="true"
       LibraryPath="$(TargetDir);$(GameManagedDir)"
