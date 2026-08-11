@@ -123,6 +123,8 @@ Ref Doc/
 .cursor/mcp.json
 .cursor/plans/
 .cursor/projects/
+.superpowers/
+.tmp-decompile/
 
 # --- Misc ---
 *.log
