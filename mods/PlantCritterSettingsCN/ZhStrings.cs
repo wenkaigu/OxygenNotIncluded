@@ -22,12 +22,15 @@ namespace Wenkaigu.PlantCritterSettingsCN
 			{
 				// Mods list / chrome (shared with Plant Settings Manager)
 				{ "Plant Settings Manager", "植物设置管理器" },
+				{ "PLANT SETTINGS MANAGER", "植物设置管理器" },
 				{ "Critter Settings Manager", "动物设置管理器" },
+				{ "CRITTER SETTINGS MANAGER", "动物设置管理器" },
 				{ "Config", "配置" },
 				{ "SAVE & CLOSE", "保存并关闭" },
 				{ "RESET ALL TO DEFAULT", "全部重置为默认" },
 				{ "RESET TO DEFAULT", "重置当前植物" },
 				{ "Settings saved.", "设置已保存。" },
+				{ "Settings saved.\n\nA game restart is required for changes to take effect.", "设置已保存。\n\n需要重启游戏后更改才会生效。" },
 				{ "A <b>game restart</b> is required for changes to take effect.", "需要<b>重启游戏</b>后更改才会生效。" },
 				{ "RESTART", "重启" },
 				{ "CONTINUE", "继续" },
@@ -179,6 +182,14 @@ namespace Wenkaigu.PlantCritterSettingsCN
 				{ "Oxyfern", "氧齿蕨" },
 				{ "Hexalent", "六角根" },
 				{ "Snactus", "菌斑根" },
+				{ "Megafrond", "巨蕨" },
+				{ "Seakomb", "海梳蕨" },
+				{ "Starnacle", "藤壶星" },
+				{ "Clampum", "巨钳蚌" },
+				{ "Tublia", "管虫" },
+				{ "Pinpoket", "针胆团" },
+				{ "Sodicane", "咸蔗" },
+				{ "Bulbloom", "灯泡花" },
 
 				// Critter display names — official 官中 from STRINGS.CREATURES.SPECIES.*.NAME
 				// (base species + variants). Base IDs (Bee, Moo, …) map to the species' displayed
@@ -241,6 +252,7 @@ namespace Wenkaigu.PlantCritterSettingsCN
 				{ "Mimika", "拟蛾" },
 				{ "Rhex", "霸王鹦" },
 				{ "Slogo", "缓螺" },
+				{ "Glo Squid", "彩斑鱿" },
 
 				// Base species IDs that may appear as internal-style DisplayNames; map to the
 				// species' official 官中 displayed name.
