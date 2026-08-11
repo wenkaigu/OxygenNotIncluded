@@ -28,7 +28,7 @@ namespace Wenkaigu.PlantCritterSettingsCN
 				{ "Config", "配置" },
 				{ "SAVE & CLOSE", "保存并关闭" },
 				{ "RESET ALL TO DEFAULT", "全部重置为默认" },
-				{ "RESET TO DEFAULT", "重置当前植物" },
+				{ "RESET TO DEFAULT", "重置为默认" },
 				{ "Settings saved.", "设置已保存。" },
 				{ "Settings saved.\n\nA game restart is required for changes to take effect.", "设置已保存。\n\n需要重启游戏后更改才会生效。" },
 				{ "A <b>game restart</b> is required for changes to take effect.", "需要<b>重启游戏</b>后更改才会生效。" },
