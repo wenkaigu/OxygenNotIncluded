@@ -5,6 +5,8 @@
     <AssemblyName>PlantCritterSettingsCN</AssemblyName>
     <OutputType>Library</OutputType>
     <ModName>PlantCritterSettingsCN</ModName>
+    <!-- Published on Workshop; keep sources in repo, do not redeploy Dev copy -->
+    <DeployToOniDev>false</DeployToOniDev>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
 
