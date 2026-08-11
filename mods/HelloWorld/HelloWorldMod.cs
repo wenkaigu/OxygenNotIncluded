@@ -6,7 +6,8 @@ using UnityEngine;
 namespace Wenkaigu.HelloWorld
 {
 	/// <summary>
-	/// Minimal Dev-folder smoke test: loads, inits PLib, applies attribute patches.
+	/// Canonical project template / build smoke test. Not deployed to mods/Dev by default
+	/// (<c>DeployToOniDev=false</c>) so it does not appear in the in-game Mods list.
 	/// </summary>
 	public sealed class HelloWorldMod : UserMod2
 	{
