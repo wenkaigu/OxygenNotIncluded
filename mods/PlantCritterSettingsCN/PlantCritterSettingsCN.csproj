@@ -1,0 +1,96 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <RootNamespace>Wenkaigu.PlantCritterSettingsCN</RootNamespace>
+    <AssemblyName>PlantCritterSettingsCN</AssemblyName>
+    <OutputType>Library</OutputType>
+    <ModName>PlantCritterSettingsCN</ModName>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="PLib" Version="4.25.0" />
+    <PackageReference Include="ILRepack.Lib.MSBuild.Task" Version="2.0.34" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="all" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="0Harmony">
+      <HintPath>$(GameManagedDir)/0Harmony.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Assembly-CSharp">
+      <HintPath>$(GameManagedDir)/Assembly-CSharp.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Assembly-CSharp-firstpass">
+      <HintPath>$(GameManagedDir)/Assembly-CSharp-firstpass.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Unity.TextMeshPro">
+      <HintPath>$(GameManagedDir)/Unity.TextMeshPro.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>$(GameManagedDir)/UnityEngine.CoreModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>$(GameManagedDir)/UnityEngine.UI.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UIModule">
+      <HintPath>$(GameManagedDir)/UnityEngine.UIModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+  <!-- Ship yaml next to build output -->
+  <ItemGroup>
+    <None Include="mod.yaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="mod_info.yaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <!-- Do not copy NuGet Harmony; use the game's 0Harmony -->
+  <Target Name="ExcludeNuGetHarmony" AfterTargets="ResolveAssemblyReferences">
+    <ItemGroup>
+      <ReferenceCopyLocalPaths Remove="@(ReferenceCopyLocalPaths)" Condition="'%(Filename)' == '0Harmony' Or '%(Filename)' == 'Harmony'" />
+    </ItemGroup>
+  </Target>
+
+  <Target Name="ILRepackPLib" AfterTargets="Build">
+    <ItemGroup>
+      <ILRepackInput Include="$(TargetPath)" />
+      <ILRepackInput Include="$(TargetDir)PLib.dll" Condition="Exists('$(TargetDir)PLib.dll')" />
+    </ItemGroup>
+    <Error Condition="!Exists('$(TargetDir)PLib.dll')" Text="PLib.dll was not copied to the output folder; cannot ILRepack." />
+    <!-- Resolve PLib deps (e.g. Newtonsoft.Json) from game Managed; do not merge them -->
+    <ILRepack
+      Internalize="true"
+      LibraryPath="$(TargetDir);$(GameManagedDir)"
+      InputAssemblies="@(ILRepackInput)"
+      OutputFile="$(TargetPath)"
+      TargetKind="Dll"
+      DebugInfo="true"
+      Parallel="true" />
+  </Target>
+
+  <Target Name="DeployToOniDev" AfterTargets="ILRepackPLib" Condition="'$(DeployToOniDev)' != 'false'">
+    <PropertyGroup>
+      <_DeployDir>$(OniModsDevDir)/$(ModName)</_DeployDir>
+    </PropertyGroup>
+    <Error Condition="'$(OniModsDevDir)' == ''" Text="OniModsDevDir is not set. Configure Directory.Build.props.user." />
+    <MakeDir Directories="$(_DeployDir)" />
+    <ItemGroup>
+      <_DeployFiles Include="$(TargetPath)" />
+      <_DeployFiles Include="$(TargetDir)mod.yaml" />
+      <_DeployFiles Include="$(TargetDir)mod_info.yaml" />
+    </ItemGroup>
+    <Copy SourceFiles="@(_DeployFiles)" DestinationFolder="$(_DeployDir)" OverwriteReadOnlyFiles="true" />
+    <Message Importance="high" Text="Deployed $(ModName) → $(_DeployDir)" />
+  </Target>
+</Project>
