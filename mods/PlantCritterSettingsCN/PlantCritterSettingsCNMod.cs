@@ -12,6 +12,7 @@ namespace Wenkaigu.PlantCritterSettingsCN
 			base.OnLoad(harmony);
 			PUtil.InitLibrary();
 			harmony.PatchAll();
+			PlantSettingsUiI18n.Apply(harmony);
 			Debug.Log("[PlantCritterSettingsCN] OnLoad");
 		}
 	}
